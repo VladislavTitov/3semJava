@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="JSP:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/JSP_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="JSP/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="JSP" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
+          <element id="library" level="project" name="postgresql-9.3-1102.jdbc41" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
