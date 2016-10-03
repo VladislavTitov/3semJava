@@ -23,4 +23,9 @@ public class UserDaoImpl implements UserDao{
         }
         return users;
     }
+
+    @Override
+    public int addUser(String user_name, int age, String city) {
+        return 0;
+    }
 }

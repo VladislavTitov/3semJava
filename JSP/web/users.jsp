@@ -13,16 +13,16 @@
     <title>Users</title>
 </head>
 <body>
-<p>
-    <%
-        List<User> users = (List) request.getAttribute("userlist");
-        for (User user :
-                users) {%>
+    <p>
+        <%
+            List<User> users = (List) request.getAttribute("userlist");
+            for (User user :
+                    users) {%>
 
-              <%=user.toString()%><br>
+                  <%=user.toString()%><br>
 
-        <%}
-    %>
-</p>
+            <%}
+        %>
+    </p>
 </body>
 </html>

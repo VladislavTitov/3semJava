@@ -14,18 +14,13 @@ import java.io.PrintWriter;
 public class UserServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        JdbcUserDaoImpl userDao = new JdbcUserDaoImpl();
-        req.setAttribute("userlist", userDao.findAll());
-        System.out.println(userDao.findAll().size());
-        for (User user :
-                userDao.findAll()) {
-            System.out.println(user);
-        }
+        /*JdbcUserDaoImpl userDao = new JdbcUserDaoImpl();
+        req.setAttribute("userlist", userDao.findAll());*/
         getServletContext().getRequestDispatcher("/users.jsp").forward(req, resp);
-        /*PrintWriter pw = resp.getWriter();
-        for (User user :
-                userDao.findAll()) {
-            pw.println("<p>" + user.toString() + "</p>");
-        }*/
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     }
 }

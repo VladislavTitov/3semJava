@@ -25,8 +25,8 @@ public class JdbcUserDaoImpl implements UserDao{
         try{
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url, name, password);
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(
+            Statement statementFind = connection.createStatement();
+            ResultSet result = statementFind.executeQuery(
                     "SELECT * FROM users;"
             );
             list = new LinkedList<>();
@@ -46,5 +46,35 @@ public class JdbcUserDaoImpl implements UserDao{
             }
         }
         return list;
+    }
+
+    @Override
+    public int addUser(String user_name, int age, String city) {
+        int id = -1;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(url, name, password);
+            Statement statementAdd = connection.createStatement();
+            statementAdd.executeUpdate(
+                    "INSERT INTO users (user_name, age, city) VALUES ('"+user_name+"', "+age+", '"+city+"');"
+            );
+            ResultSet rs = statementAdd.executeQuery(
+                    "SELECT id FROM users WHERE user_name = '"+user_name+"' AND age = "+age+" AND city = '"+city+"';"
+            );
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (Exception e) {
+            Logger.getLogger(JdbcUserDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            if (connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(JdbcUserDaoImpl.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+        return id;
     }
 }
