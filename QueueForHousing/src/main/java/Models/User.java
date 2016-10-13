@@ -11,4 +11,11 @@ public class User {
     public String getUser_name() {
         return user_name;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_name='" + user_name + '\'' +
+                '}';
+    }
 }
