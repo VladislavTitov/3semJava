@@ -5,12 +5,12 @@
          version="3.1">
 
     <servlet>
-        <servlet-name>SignIn</servlet-name>
-        <servlet-class>Servlets.SignInServlet</servlet-class>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>Servlets.SignUpServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>SignIn</servlet-name>
+        <servlet-name>SignUp</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,0 +1,79 @@
+body {
+  background: #EEF0F2;
+  color: #2B3D41;
+}
+.block {
+  -webkit-box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
+     -moz-box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
+          box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
+  background: #fff;
+  margin-top: 20px;
+}
+.banner {
+  border-radius: 4px;
+  margin-top: 50px;
+  text-align: center;
+  padding: 50px 0;
+}
+.join-form-block {
+  margin-top: 50px;
+  border-radius: 4px;
+}
+.form-header {
+  padding: 25px 0;
+  border-bottom: 1px solid black;
+}
+.join-form {
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+.author-link {
+  text-decoration: none;
+  color: #2B3D41;
+  font-size: 1em;
+  cursor: pointer;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background: #E0E3E5;
+}
+.form-control {
+  margin-top: 4px;
+}
+.subheader {
+  margin-top: 20px;
+  text-align: center;
+}
+.queue-label {
+  display: inline-block;
+  background: #2B3D41;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 300;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+.form-group-list {
+  width: 25%;
+  margin-left: 43px;
+}
+.queue-form input[type=text] {
+  width: 100%;
+}
+.row {
+  margin-top: 10px;
+}
+.success-info {
+  font-weight: 300;
+}
+h4 {
+  margin-top: 20px;
+}
+h4:last-child {
+  margin-bottom: 50px;
+}
