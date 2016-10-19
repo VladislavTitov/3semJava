@@ -11,5 +11,7 @@ public class QueueServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.getRequestDispatcher("/queue.jsp").forward(req, resp);
+
     }
 }

@@ -10,7 +10,8 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/signup1.jsp").forward(req, resp);
+        req.getRequestDispatcher("/signup.jsp").forward(req, resp);
+        System.out.println("This is Registration!!!");
     }
 
     @Override
@@ -18,5 +19,7 @@ public class SignUpServlet extends HttpServlet {
         System.out.println(req.getParameter("email"));
         System.out.println(req.getParameter("pass"));
         System.out.println(req.getParameter("pass-conf"));
+
+        resp.sendRedirect("/queue");
     }
 }

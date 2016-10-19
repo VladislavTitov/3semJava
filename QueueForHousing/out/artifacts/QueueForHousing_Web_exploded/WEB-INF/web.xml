@@ -5,6 +5,16 @@
          version="3.1">
 
     <servlet>
+        <servlet-name>SignIn</servlet-name>
+        <servlet-class>Servlets.SignInServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignIn</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SignUp</servlet-name>
         <servlet-class>Servlets.SignUpServlet</servlet-class>
     </servlet>
@@ -12,5 +22,15 @@
     <servlet-mapping>
         <servlet-name>SignUp</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Queue</servlet-name>
+        <servlet-class>Servlets.QueueServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Queue</servlet-name>
+        <url-pattern>/queue</url-pattern>
     </servlet-mapping>
 </web-app>

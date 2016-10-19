@@ -37,7 +37,7 @@
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 join-form-block block">
         <h2 class="form-header">Регистрация</h2>
-        <form class="form-horizontal join-form col-lg-8 col-lg-offset-2" role="form" method="post" action="SignUpServlet">
+        <form class="form-horizontal join-form col-lg-8 col-lg-offset-2" role="form" method="post" action="/signup">
             <div class="form-group">
                 <label for="email-signup-field" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
@@ -70,7 +70,7 @@
                     <button type="submit" class="btn btn-primary">Регистрация</button>
                 </div>
             </div>
-            <a href="signin.html" class="btn btn-link">Уже есть аккаунт?</a>
+            <a href="/signin" class="btn btn-link">Уже есть аккаунт?</a>
         </form>
     </div>
 </div>
