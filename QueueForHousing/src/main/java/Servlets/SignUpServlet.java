@@ -1,5 +1,9 @@
 package Servlets;
 
+import Models.User;
+import Services.UserService;
+import Services.UserServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +24,21 @@ public class SignUpServlet extends HttpServlet {
         System.out.println(req.getParameter("pass"));
         System.out.println(req.getParameter("pass-conf"));
 
-        resp.sendRedirect("/queue");
+        if (!req.getParameter("pass").equals(req.getParameter("pass-conf"))){
+            /*req.getSession().setAttribute("equals", "false");
+            req.getSession().setAttribute("email", req.getParameter("email"));*/
+            resp.sendRedirect("/signup");
+        }else {
+            /*req.getSession().setAttribute("equals", true);*/
+            UserService userService = new UserServiceImpl();
+            if (userService.isRegistered(req.getParameter("email"))) {
+                /*req.getSession().setAttribute("isregistered", true);*/
+                resp.sendRedirect("/signup");
+            } else {
+               /* req.getSession().setAttribute("isregistered", false);*/
+                userService.saveUser(new User(req.getParameter("email"), req.getParameter("pass")));
+                resp.sendRedirect("/queue");
+            }
+        }
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PostgreSQL - testsem@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="2.6">
+    <database id="1" name="testsem">
+      <object-id>16591</object-id>
+      <visible>1</visible>
+    </database>
+    <database id="2" name="postgres">
+      <object-id>12401</object-id>
+    </database>
+    <database id="3" name="learningsql">
+      <object-id>16431</object-id>
+    </database>
+    <database id="4" name="learningdb">
+      <object-id>16472</object-id>
+    </database>
+    <schema id="5" parent="1" name="public">
+      <object-id>2200</object-id>
+      <visible>1</visible>
+      <introspection-state-number>672</introspection-state-number>
+      <introspection-timestamp>2016-10-25.18:43:31.703</introspection-timestamp>
+    </schema>
+    <schema id="6" parent="1" name="pg_catalog">
+      <object-id>11</object-id>
+    </schema>
+    <schema id="7" parent="1" name="pg_toast">
+      <object-id>99</object-id>
+    </schema>
+    <schema id="8" parent="1" name="pg_temp_1">
+      <object-id>11848</object-id>
+    </schema>
+    <schema id="9" parent="1" name="pg_toast_temp_1">
+      <object-id>11849</object-id>
+    </schema>
+    <schema id="10" parent="1" name="information_schema">
+      <object-id>12113</object-id>
+    </schema>
+    <sequence id="11" parent="5" name="users_id_seq">
+      <object-id>16592</object-id>
+      <state-number>672</state-number>
+    </sequence>
+    <table id="12" parent="5" name="users">
+      <object-id>16594</object-id>
+      <state-number>672</state-number>
+    </table>
+    <column id="13" parent="12" name="id">
+      <state-number>672</state-number>
+      <mandatory>1</mandatory>
+      <data-type>integer|0</data-type>
+      <default-expression>nextval(&apos;users_id_seq&apos;::regclass)</default-expression>
+    </column>
+    <column id="14" parent="12" name="user_name">
+      <state-number>672</state-number>
+      <data-type>varchar(30)|0</data-type>
+    </column>
+    <index id="15" parent="12" name="users_pkey">
+      <object-id>16598</object-id>
+      <columns>id</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="16" parent="12" name="users_pkey">
+      <object-id>16599</object-id>
+      <columns>id</columns>
+      <underlying-index>users_pkey</underlying-index>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>

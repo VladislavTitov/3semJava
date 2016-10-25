@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label for="email-signup-field" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email-signup-field" placeholder="Email" name="email">
+                    <input type="email" class="form-control" id="email-signup-field" onload="fillEmail()" placeholder="Email" name="email">
                 </div>
             </div>
             <div class="form-group">
@@ -85,5 +85,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>
