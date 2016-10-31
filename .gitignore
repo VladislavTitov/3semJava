@@ -23,7 +23,6 @@ effective-settings.xml
 /*/.gwt/
 .cache
 .idea/
-*.iml
 *.log
 *.lck
 *.jar
