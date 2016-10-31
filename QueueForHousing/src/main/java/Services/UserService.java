@@ -8,4 +8,6 @@ public interface UserService {
 
     void saveUser(User user);
 
+    void checkPassword(String password);
+
 }

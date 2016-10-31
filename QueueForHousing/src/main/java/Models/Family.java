@@ -23,4 +23,6 @@ public class Family {
     public int getChildren() {
         return children;
     }
+
+
 }

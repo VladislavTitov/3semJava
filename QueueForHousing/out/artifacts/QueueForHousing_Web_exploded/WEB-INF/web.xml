@@ -47,4 +47,26 @@
         <servlet-name>Success</servlet-name>
         <url-pattern>/success</url-pattern>
     </servlet-mapping>
+
+    <!--Filters-->
+
+    <filter>
+        <filter-name>SignInFilter</filter-name>
+        <filter-class>Filters.SignInFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SignInFilter</filter-name>
+        <servlet-name>SignIn</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>QueueFilter</filter-name>
+        <filter-class>Filters.QueueFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>QueueFilter</filter-name>
+        <servlet-name>Queue</servlet-name>
+    </filter-mapping>
 </web-app>

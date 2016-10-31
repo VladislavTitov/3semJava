@@ -1,5 +1,6 @@
 package Dao;
 
+import Factories.ConnectionToDb;
 import Models.User;
 
 import java.sql.PreparedStatement;
@@ -51,5 +52,33 @@ public class UserDaoImpl implements UserDao {
 
     public List<User> findAll() {
         return null;
+    }
+
+    public boolean checkPassword(String password){
+
+        boolean isValid = false;
+
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "SELECT password FROM users WHERE password = ?"
+            );
+
+            statement.setString(1, password);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()){
+                isValid = true;
+            }
+            if (rs.next()){
+                throw new IllegalArgumentException();
+            }
+
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return isValid;
     }
 }

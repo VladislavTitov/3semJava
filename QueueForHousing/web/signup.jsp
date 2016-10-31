@@ -27,6 +27,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
 </head>
+
+
+
 <body>
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 banner block">
@@ -41,7 +44,7 @@
             <div class="form-group">
                 <label for="email-signup-field" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email-signup-field" onload="fillEmail()" placeholder="Email" name="email">
+                    <input type="email" class="form-control" id="email-signup-field" placeholder="Email" name="email">
                 </div>
             </div>
             <div class="form-group">
@@ -51,16 +54,17 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="password-signup-field" class="col-sm-2 control-label">Пароль</label>
+                <label for="confirm-password-signup-field" class="col-sm-2 control-label">Подтвердите пароль</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="confirm-password-signup-field" placeholder="Подтвердите пароль" name="pass-conf">
+                    <input type="password" class="form-control" id="confirm-password-signup-field" placeholder="Подтвердите пароль" name="pass-conf" >
                 </div>
             </div>
             <div class="form-group">
+
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">Запомнить меня
+                            <input type="checkbox" name="remember">Запомнить меня
                         </label>
                     </div>
                 </div>

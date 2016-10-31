@@ -17,8 +17,8 @@
     <schema id="5" parent="1" name="public">
       <object-id>2200</object-id>
       <visible>1</visible>
-      <introspection-state-number>672</introspection-state-number>
-      <introspection-timestamp>2016-10-25.18:43:31.703</introspection-timestamp>
+      <introspection-state-number>677</introspection-state-number>
+      <introspection-timestamp>2016-10-30.19:21:18.471</introspection-timestamp>
     </schema>
     <schema id="6" parent="1" name="pg_catalog">
       <object-id>11</object-id>
@@ -35,33 +35,37 @@
     <schema id="10" parent="1" name="information_schema">
       <object-id>12113</object-id>
     </schema>
-    <sequence id="11" parent="5" name="users_id_seq">
-      <object-id>16592</object-id>
-      <state-number>672</state-number>
+    <sequence id="11" parent="5" name="users_user_id_seq">
+      <object-id>16600</object-id>
+      <state-number>677</state-number>
     </sequence>
     <table id="12" parent="5" name="users">
-      <object-id>16594</object-id>
-      <state-number>672</state-number>
+      <object-id>16602</object-id>
+      <state-number>677</state-number>
     </table>
-    <column id="13" parent="12" name="id">
-      <state-number>672</state-number>
+    <column id="13" parent="12" name="user_id">
+      <state-number>677</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
-      <default-expression>nextval(&apos;users_id_seq&apos;::regclass)</default-expression>
+      <default-expression>nextval(&apos;users_user_id_seq&apos;::regclass)</default-expression>
     </column>
     <column id="14" parent="12" name="user_name">
-      <state-number>672</state-number>
+      <state-number>677</state-number>
       <data-type>varchar(30)|0</data-type>
     </column>
-    <index id="15" parent="12" name="users_pkey">
-      <object-id>16598</object-id>
-      <columns>id</columns>
+    <column id="15" parent="12" name="password">
+      <state-number>677</state-number>
+      <data-type>varchar(30)|0</data-type>
+    </column>
+    <index id="16" parent="12" name="users_pkey">
+      <object-id>16606</object-id>
+      <columns>user_id</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <key id="16" parent="12" name="users_pkey">
-      <object-id>16599</object-id>
-      <columns>id</columns>
+    <key id="17" parent="12" name="users_pkey">
+      <object-id>16607</object-id>
+      <columns>user_id</columns>
       <underlying-index>users_pkey</underlying-index>
       <primary>1</primary>
     </key>
