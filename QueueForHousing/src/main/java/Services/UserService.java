@@ -8,6 +8,6 @@ public interface UserService {
 
     void saveUser(User user);
 
-    void checkPassword(String password);
+    boolean checkPassword(String user_name, String password);
 
 }

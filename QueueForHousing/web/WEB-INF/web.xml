@@ -8,6 +8,8 @@
         <welcome-file>signin.jsp</welcome-file>
     </welcome-file-list>
 
+    <!--Servlets-->
+
     <servlet>
         <servlet-name>SignIn</servlet-name>
         <servlet-class>Servlets.SignInServlet</servlet-class>
@@ -51,6 +53,16 @@
     <!--Filters-->
 
     <filter>
+        <filter-name>SignUpFilter</filter-name>
+        <filter-class>Filters.SignUpFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SignUpFilter</filter-name>
+        <servlet-name>SignUp</servlet-name>
+    </filter-mapping>
+
+    <filter>
         <filter-name>SignInFilter</filter-name>
         <filter-class>Filters.SignInFilter</filter-class>
     </filter>
@@ -68,5 +80,15 @@
     <filter-mapping>
         <filter-name>QueueFilter</filter-name>
         <servlet-name>Queue</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>SuccessFilter</filter-name>
+        <filter-class>Filters.SuccessFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SuccessFilter</filter-name>
+        <servlet-name>Success</servlet-name>
     </filter-mapping>
 </web-app>

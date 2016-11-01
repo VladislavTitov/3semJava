@@ -22,7 +22,7 @@ public class UserDaoImplTest {
 
     @Test
     public void checkPassword() throws Exception {
-        assertTrue(userDao.checkPassword("123"));
+        assertTrue(userDao.checkPassword("admin2@admin2.com", "123"));
     }
 
 }

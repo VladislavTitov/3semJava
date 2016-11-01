@@ -2,6 +2,7 @@ package Services;
 
 import Dao.UserDao;
 import Factories.DaoFactory;
+import Factories.ServiceFactory;
 import Models.User;
 
 public class UserServiceImpl implements UserService{
@@ -24,8 +25,13 @@ public class UserServiceImpl implements UserService{
         userDao.save(user);
     }
 
+    /**
+     * MD5 is needed here
+     * @param password
+     */
     @Override
-    public void checkPassword(String password) {
-
+    public boolean checkPassword(String user_name, String password) {
+        UserDao userDao = DaoFactory.getInstance().getUserDao();
+        return userDao.checkPassword(user_name, password);
     }
 }

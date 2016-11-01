@@ -17,27 +17,27 @@ public class SignInServlet extends HttpServlet {
         req.getRequestDispatcher("/signin.jsp").forward(req, resp);
     }
 
+
+    /**
+     * boolean remember is needed
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String user_name = req.getParameter("email");
+        String password = req.getParameter("pass");
+
         UserService userService = ServiceFactory.getInstance().getUserService();
 
-        if (userService.isRegistered(req.getParameter("email"))){
+        if (user_name.equals("") || password.equals("") || !userService.isRegistered(user_name) || !userService.checkPassword(user_name, password)){
+            resp.sendRedirect("/signin");
+        }else{
             req.getSession().setAttribute("current_user", req.getParameter("email"));
             resp.sendRedirect("/queue");
-        }else {
-
-            for (Map.Entry<String, String[]> entry: req.getParameterMap().entrySet()){
-                for (String value :
-                        entry.getValue()) {
-                    System.out.println(entry.getKey() +  " " + value);
-                }
-            }
-
-            if (req.getParameter("remember") == null){
-                System.out.println("Remember == null");
-            }
-
-            resp.sendRedirect("/signin");
         }
+
     }
 }

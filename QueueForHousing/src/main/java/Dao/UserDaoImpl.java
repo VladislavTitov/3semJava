@@ -54,16 +54,17 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
-    public boolean checkPassword(String password){
+    public boolean checkPassword(String user_name, String password){
 
         boolean isValid = false;
 
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                    "SELECT password FROM users WHERE password = ?"
+                    "SELECT password FROM users WHERE user_name = ? AND password = ?"
             );
 
-            statement.setString(1, password);
+            statement.setString(1, user_name);
+            statement.setString(2, password);
 
             ResultSet rs = statement.executeQuery();
 

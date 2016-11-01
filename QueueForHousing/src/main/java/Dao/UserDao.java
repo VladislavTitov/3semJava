@@ -13,5 +13,5 @@ public interface UserDao {
 
     List<User> findAll();
 
-    boolean checkPassword(String password);
+    boolean checkPassword(String user_name, String password);
 }
