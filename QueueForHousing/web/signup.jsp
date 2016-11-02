@@ -64,7 +64,7 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="remember">Запомнить меня
+                            <input type="checkbox" name="remember" value="true">Запомнить меня
                         </label>
                     </div>
                 </div>

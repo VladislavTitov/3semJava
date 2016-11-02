@@ -30,13 +30,14 @@ public class SignUpServlet extends HttpServlet {
         String user_name = req.getParameter("email");
         String password = req.getParameter("pass");
         String passConf = req.getParameter("pass-conf");
+        boolean remember = req.getParameter("remember") != null;
 
         UserService userService = ServiceFactory.getInstance().getUserService();
 
         if (user_name.equals("") || password.equals("") || passConf.equals("") || !password.equals(passConf) || userService.isRegistered(user_name)){
             resp.sendRedirect("/signup");
         }else{
-            userService.saveUser(new User(user_name, password));
+            userService.saveUser(new User.Builder().setUserName(user_name).setPassword(password).setRemember(remember).build());
             req.getSession().setAttribute("current_user", user_name);
             resp.sendRedirect("/queue");
         }

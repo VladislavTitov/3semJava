@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 
             while (resultSet.next()){
                 if (resultSet.getString("user_name").equals(user_name)) {
-                    user = new User(resultSet.getString("user_name"));
+                    user = new User.Builder().setUserName(resultSet.getString("user_name")).build();
                     break;
                 }
             }

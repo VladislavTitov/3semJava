@@ -2,17 +2,42 @@ package Models;
 
 public class User {
 
-    private String user_name;
+    private final String user_name;
 
-    private String password;
+    private final String password;
 
-    public User(String user_name) {
-        this.user_name = user_name;
+    private final boolean remember;
+
+    public static class Builder{
+        private String user_name;
+        private String password;
+        private boolean remember;
+
+        public Builder setUserName(String user_name){
+            this.user_name = user_name;
+            return this;
+        }
+
+        public Builder setPassword(String password){
+            this.password = password;
+            return this;
+        }
+
+        public Builder setRemember(boolean remember){
+            this.remember = remember;
+            return this;
+        }
+
+        public User build(){
+            return new User(this);
+        }
+
     }
 
-    public User(String user_name, String password) {
-        this.user_name = user_name;
-        this.password = password;
+    private User(Builder builder){
+        this.user_name = builder.user_name;
+        this.password = builder.password;
+        this.remember = builder.remember;
     }
 
     public String getUser_name() {
@@ -23,10 +48,7 @@ public class User {
         return password;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "user_name='" + user_name + '\'' +
-                '}';
+    public boolean getRemember() {
+        return remember;
     }
 }
