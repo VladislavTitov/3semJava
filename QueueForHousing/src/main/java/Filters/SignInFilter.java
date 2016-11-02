@@ -1,10 +1,12 @@
 package Filters;
 
-import com.sun.deploy.net.HttpRequest;
+import Dao.UserDao;
+import Factories.DaoFactory;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SignInFilter implements Filter {
@@ -15,10 +17,25 @@ public class SignInFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if (((HttpServletRequest)servletRequest).getSession().getAttribute("current_user") == null){
-            filterChain.doFilter(servletRequest, servletResponse);
+        if (((HttpServletRequest)servletRequest).getSession().getAttribute("current_user") != null){
+            servletRequest.getRequestDispatcher("/queue").forward(servletRequest, servletResponse);
         }else {
-            ((HttpServletRequest)servletRequest).getRequestDispatcher("/queue").forward(servletRequest, servletResponse);
+            UserDao userDao = DaoFactory.getInstance().getUserDao();
+            String userName;
+            Cookie[] cookies = ((HttpServletRequest) servletRequest).getCookies();
+            String token = null;
+            for (Cookie cookie : cookies) {
+                if ("qfhCookie".equals(cookie.getName())){
+                    token = cookie.getValue();
+                }
+            }
+            if (token != null){
+                userName = userDao.isExistToken(token);
+                ((HttpServletRequest)servletRequest).getSession().setAttribute("current_user", userName);
+                ((HttpServletResponse)servletResponse).sendRedirect("/queue");
+            }else {
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
         }
     }
 

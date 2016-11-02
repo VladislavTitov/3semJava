@@ -29,6 +29,27 @@
     <![endif]-->
 </head>
 <body>
+
+<nav role="navigation" class="navbar navbar-default">
+
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand"><%=request.getSession().getAttribute("current_user")%></a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Выйти</a></li>
+        </ul>
+    </div>
+
+</nav>
+
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 banner block">
         <h1>Очередь на жилье</h1>

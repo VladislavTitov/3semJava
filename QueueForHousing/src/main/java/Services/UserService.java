@@ -8,10 +8,14 @@ public interface UserService {
 
     boolean isRegistered(String user_name);
 
-    void saveUser(User user);
+    Cookie saveUser(User user);
 
     boolean checkPassword(String user_name, String password);
 
     Cookie generateCookies();
+
+    void saveToken(String userName, String token);
+
+    String isExistToken(String token);
 
 }

@@ -37,11 +37,16 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                    "INSERT INTO users VALUES (DEFAULT, ?, ?)"
+                    "INSERT INTO users VALUES (DEFAULT, ?, ?, ?);"
             );
 
             statement.setString(1, user.getUser_name());
             statement.setString(2, user.getPassword());
+            if (user.getRemember()){
+                statement.setString(3, user.getToken());
+            }else {
+                statement.setString(3, "");
+            }
 
             statement.executeUpdate();
 
@@ -50,17 +55,13 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public List<User> findAll() {
-        return null;
-    }
-
     public boolean checkPassword(String user_name, String password){
 
         boolean isValid = false;
 
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                    "SELECT password FROM users WHERE user_name = ? AND password = ?"
+                    "SELECT password FROM users WHERE user_name = ? AND password = ?;"
             );
 
             statement.setString(1, user_name);
@@ -81,5 +82,48 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return isValid;
+    }
+
+    @Override
+    public void saveToken(String userName, String token) {
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                "UPDATE users SET token = ? WHERE user_name = ?;"
+            );
+
+            statement.setString(1, token);
+            statement.setString(2, userName);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String isExistToken(String token) {
+        String userNameOnToken = null;
+
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                "SELECT user_name FROM users WHERE token = ?"
+            );
+
+            statement.setString(1, token);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()){
+                userNameOnToken = resultSet.getString("user_name");
+            }
+            if (resultSet.next()){
+                throw new IllegalArgumentException();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userNameOnToken;
     }
 }

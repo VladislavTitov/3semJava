@@ -11,7 +11,9 @@ public interface UserDao {
 
     void save(User user);
 
-    List<User> findAll();
-
     boolean checkPassword(String user_name, String password);
+
+    void saveToken(String userName, String token);
+
+    String isExistToken(String token);
 }

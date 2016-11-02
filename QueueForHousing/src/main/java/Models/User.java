@@ -8,9 +8,12 @@ public class User {
 
     private final boolean remember;
 
+    private final String token;
+
     public static class Builder{
         private String user_name;
         private String password;
+        private String token;
         private boolean remember;
 
         public Builder setUserName(String user_name){
@@ -20,6 +23,11 @@ public class User {
 
         public Builder setPassword(String password){
             this.password = password;
+            return this;
+        }
+
+        public Builder setToken(String token){
+            this.token = token;
             return this;
         }
 
@@ -38,6 +46,7 @@ public class User {
         this.user_name = builder.user_name;
         this.password = builder.password;
         this.remember = builder.remember;
+        this.token = builder.token;
     }
 
     public String getUser_name() {
@@ -50,5 +59,9 @@ public class User {
 
     public boolean getRemember() {
         return remember;
+    }
+
+    public String getToken(){
+        return token;
     }
 }

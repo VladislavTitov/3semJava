@@ -5,6 +5,7 @@ import Models.User;
 import Services.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,11 @@ public class SignUpServlet extends HttpServlet {
         if (user_name.equals("") || password.equals("") || passConf.equals("") || !password.equals(passConf) || userService.isRegistered(user_name)){
             resp.sendRedirect("/signup");
         }else{
-            userService.saveUser(new User.Builder().setUserName(user_name).setPassword(password).setRemember(remember).build());
+            Cookie cookie = userService.saveUser(new User.Builder().setUserName(user_name).setPassword(password).setRemember(remember).build());
+            if (remember){
+                cookie.setMaxAge(180);
+                resp.addCookie(cookie);
+            }
             req.getSession().setAttribute("current_user", user_name);
             resp.sendRedirect("/queue");
         }
