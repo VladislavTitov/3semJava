@@ -1,12 +1,15 @@
 package Factories;
 
+import Services.QueueService;
+import Services.QueueServiceImpl;
 import Services.UserService;
 import Services.UserServiceImpl;
 
 public class ServiceFactory {
     private static ServiceFactory ourInstance;
 
-    UserService userService;
+    private UserService userService;
+    private QueueService queueService;
 
     public static ServiceFactory getInstance() {
         return ourInstance;
@@ -14,6 +17,7 @@ public class ServiceFactory {
 
     private ServiceFactory() {
         userService = new UserServiceImpl();
+        queueService = new QueueServiceImpl();
     }
 
     static {
@@ -22,5 +26,9 @@ public class ServiceFactory {
 
     public UserService getUserService() {
         return userService;
+    }
+
+    public QueueService getQueueService() {
+        return queueService;
     }
 }

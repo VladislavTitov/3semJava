@@ -43,7 +43,7 @@
 
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Выйти</a></li>
+            <li><a href="/signout">Выйти</a></li>
         </ul>
     </div>
 
@@ -59,20 +59,20 @@
 <div class="container-fluid">
     <div class="col-lg-8 col-lg-offset-2 block join-form-block">
         <h2 class="form-header">Регистрация семьи на очередь</h2>
-        <form class="form-inline queue-form" role="form" action="/success">
+        <form class="form-inline queue-form" role="form" action="/queue" method="post">
             <!-- ROW -->
             <div class="row">
                 <div class="label col-lg-1">
                     <label class="queue-label" for="surname-father-input">Отец</label>
                 </div>
                 <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="surname-father-input" name="father_surname" placeholder="Фамилия">
+                    <input type="text" class="form-control" id="surname-father-input" name="father-surname" placeholder="Фамилия">
                 </div>
                 <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="name-father-input" name="father_name" placeholder="Имя">
+                    <input type="text" class="form-control" id="name-father-input" name="father-name" placeholder="Имя">
                 </div>
                 <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="patronymic-father-input" name="father_patronym" placeholder="Отчество">
+                    <input type="text" class="form-control" id="patronymic-father-input" name="father-patronymic" placeholder="Отчество">
                 </div>
             </div>
 
@@ -82,13 +82,13 @@
                     <label class="queue-label" for="surname-mother-input">Мать</label>
                 </div>
                 <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="surname-mother-input" name="mother_surname" placeholder="Фамилия">
+                    <input type="text" class="form-control" id="surname-mother-input" name="mother-surname" placeholder="Фамилия">
                 </div>
                 <div class="form-group form-group-list">
                     <input type="text" class="form-control" id="name-mother-input" name="mother-name" placeholder="Имя">
                 </div>
                 <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="patronymic-mother-input" name="mother-patronym" placeholder="Отчество">
+                    <input type="text" class="form-control" id="patronymic-mother-input" name="mother-patronymic" placeholder="Отчество">
                 </div>
             </div>
             <!-- ROW -->
@@ -105,7 +105,7 @@
 <input type="text" class="form-control" id="name-child-input[0]" name="child-name[0]" placeholder="Имя">
 </div>
 <div class="form-group form-group-list">
-<input type="text" class="form-control" id="patronymic-child-input[0]" name="child-patronym[0]" placeholder="Отчество">
+<input type="text" class="form-control" id="patronymic-child-input[0]" name="child-patronymic[0]" placeholder="Отчество">
 </div>
 <input class="btn btn-primary" type="button" name="subtraction" value="-" onclick="removeCh(0)">
 </span><br>
@@ -117,6 +117,22 @@
 </div>
 </div>
 </div>
+
+            <div class="row">
+                <div class="label col-lg-1">
+                    <label  for="surname-child-input[0]"></label>
+                </div>
+                <div class="col-lg-2">
+                    <label for="child-count" style="margin-top: 10px;">Количество детей</label>
+                </div>
+
+                <div class="col-lg-1">
+                    <input class="form-control" style="width: 100%;" readonly type="text" id="child-count" value="1" name="children-count">
+                </div>
+
+            </div>
+
+
 
 
 
@@ -152,7 +168,7 @@
 
                     <div class="form-group" style="margin-top: 10px;">
                         <label class="checkbox-inline">
-                            <input name = "kindergarden" type="checkbox" id="inlineCheckbox1" value="true"> Детский сад/Ясли
+                            <input name = "kindergarten" type="checkbox" id="inlineCheckbox1" value="true"> Детский сад/Ясли
                         </label>
                         <label class="checkbox-inline">
                             <input name = "school" type="checkbox" id="inlineCheckbox2" value="true"> Школа
@@ -199,6 +215,7 @@
     var c = 0;
     function addChild() {
         c++;
+        getCount();
         var s = document.getElementById('child').innerHTML;
         s = s.replace(/[\r\n]/g, '');
         var regexp = /(.*)(<span id=.*><\/span>)(<br>)(.*)/gi;
@@ -213,6 +230,7 @@
             return false;
         }else{
             c--;
+            getCount();
         }
         s = document.getElementById('child').innerHTML;
         s = s.replace(/[\r\n]/g, '');
@@ -220,6 +238,10 @@
         s = s.replace(re, '');
         document.getElementById('child').innerHTML = s;
     }
+    function getCount() {
+        document.getElementById('child-count').value = '' + (c + 1);
+    }
+
     </script>
 
     </body>

@@ -1,5 +1,8 @@
 package Servlets;
 
+import Factories.ServiceFactory;
+import Services.QueueService;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +13,10 @@ public class SuccessServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        QueueService queueService = ServiceFactory.getInstance().getQueueService();
+        req.getSession().setAttribute("id", queueService.findId((String)req.getSession().getAttribute("current_user")));
+
         req.getRequestDispatcher("/success.jsp").forward(req, resp);
     }
 }

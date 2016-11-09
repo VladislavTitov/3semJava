@@ -3,10 +3,8 @@ package Dao;
 import Factories.ConnectionToDb;
 import Models.User;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -18,7 +16,7 @@ public class UserDaoImpl implements UserDao {
         try {
             Statement statement = ConnectionToDb.getInstance().getConnection().createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT user_name FROM users;");
+            ResultSet resultSet = statement.executeQuery("SELECT user_name FROM \"Users\";");
 
             while (resultSet.next()){
                 if (resultSet.getString("user_name").equals(user_name)) {
@@ -34,10 +32,14 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * Should be saving date of registration
+     * @param user
+     */
     public void save(User user) {
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                    "INSERT INTO users VALUES (DEFAULT, ?, ?, ?);"
+                    "INSERT INTO \"Users\" (user_id, user_name, password, token, date_registration)  VALUES (DEFAULT, ?, ?, ?, ?);"
             );
 
             statement.setString(1, user.getUser_name());
@@ -47,6 +49,7 @@ public class UserDaoImpl implements UserDao {
             }else {
                 statement.setString(3, "");
             }
+            statement.setDate(4, Date.valueOf(LocalDate.now()));
 
             statement.executeUpdate();
 
@@ -61,7 +64,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                    "SELECT password FROM users WHERE user_name = ? AND password = ?;"
+                    "SELECT password FROM \"Users\" WHERE user_name = ? AND password = ?;"
             );
 
             statement.setString(1, user_name);
@@ -88,7 +91,7 @@ public class UserDaoImpl implements UserDao {
     public void saveToken(String userName, String token) {
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                "UPDATE users SET token = ? WHERE user_name = ?;"
+                "UPDATE \"Users\" SET token = ? WHERE user_name = ?;"
             );
 
             statement.setString(1, token);
@@ -107,7 +110,7 @@ public class UserDaoImpl implements UserDao {
 
         try {
             PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
-                "SELECT user_name FROM users WHERE token = ?"
+                "SELECT user_name FROM \"Users\" WHERE token = ?;"
             );
 
             statement.setString(1, token);
@@ -125,5 +128,21 @@ public class UserDaoImpl implements UserDao {
             e.printStackTrace();
         }
         return userNameOnToken;
+    }
+
+    @Override
+    public void addQueueToUser(String userName, int queueId) {
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "UPDATE \"Users\" SET queue_id = ? WHERE user_name = ?;"
+            );
+
+            statement.setInt(1, queueId);
+            statement.setString(2, userName);
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

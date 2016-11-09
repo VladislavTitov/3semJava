@@ -50,17 +50,17 @@
         <url-pattern>/success</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SignOut</servlet-name>
+        <servlet-class>Servlets.SignOutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignOut</servlet-name>
+        <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
+
     <!--Filters-->
-
-    <filter>
-        <filter-name>SignUpFilter</filter-name>
-        <filter-class>Filters.SignUpFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>SignUpFilter</filter-name>
-        <servlet-name>SignUp</servlet-name>
-    </filter-mapping>
 
     <filter>
         <filter-name>SignInFilter</filter-name>
@@ -70,6 +70,7 @@
     <filter-mapping>
         <filter-name>SignInFilter</filter-name>
         <servlet-name>SignIn</servlet-name>
+        <servlet-name>SignUp</servlet-name>
     </filter-mapping>
 
     <filter>
@@ -80,15 +81,8 @@
     <filter-mapping>
         <filter-name>QueueFilter</filter-name>
         <servlet-name>Queue</servlet-name>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>SuccessFilter</filter-name>
-        <filter-class>Filters.SuccessFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>SuccessFilter</filter-name>
         <servlet-name>Success</servlet-name>
     </filter-mapping>
+
+
 </web-app>

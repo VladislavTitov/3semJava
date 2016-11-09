@@ -2,14 +2,40 @@ package Models;
 
 public class Father {
 
-    private String surname;
-    private String name;
-    private String middle_name;
+    private final String surname;
+    private final String name;
+    private final String patronymic;
 
-    public Father(String surname, String name, String middle_name) {
-        this.surname = surname;
-        this.name = name;
-        this.middle_name = middle_name;
+    public static class Builder{
+
+        private String surname;
+        private String name;
+        private String patronymic;
+
+        public Builder setSurname(String surname) {
+            this.surname = surname;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setPatronymic(String patronymic) {
+            this.patronymic = patronymic;
+            return this;
+        }
+
+        public Father build(){
+            return new Father(this);
+        }
+    }
+
+    private Father(Builder builder) {
+        this.surname = builder.surname;
+        this.name = builder.name;
+        this.patronymic = builder.patronymic;
     }
 
     public String getSurname() {
@@ -20,7 +46,7 @@ public class Father {
         return name;
     }
 
-    public String getMiddle_name() {
-        return middle_name;
+    public String getPatronymic() {
+        return patronymic;
     }
 }

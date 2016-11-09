@@ -1,7 +1,6 @@
 package Models;
 
-public class Mother {
-
+public class Child {
     private final String surname;
     private final String name;
     private final String patronymic;
@@ -27,12 +26,12 @@ public class Mother {
             return this;
         }
 
-        public Mother build(){
-            return new Mother(this);
+        public Child build(){
+            return new Child(this);
         }
     }
 
-    private Mother(Builder builder) {
+    private Child(Builder builder) {
         this.surname = builder.surname;
         this.name = builder.name;
         this.patronymic = builder.patronymic;
@@ -49,5 +48,4 @@ public class Mother {
     public String getPatronymic() {
         return patronymic;
     }
-
 }

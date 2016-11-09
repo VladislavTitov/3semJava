@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="PostgreSQL - testsem@localhost" uuid="56ac3d16-807a-4b01-871c-e3a288b24dfb">
+    <data-source name="PostgreSQL - qfhdb@localhost" uuid="39fedb8d-fce9-4c95-a53e-6b5f6a96b38c">
       <database-info product="PostgreSQL" version="9.6rc1" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>postgres</user-name>
-      <resolve-scope>testsem:postgres,public</resolve-scope>
+      <user-name>qfh</user-name>
+      <resolve-scope>qfhdb:public,qfh</resolve-scope>
     </data-source>
   </component>
 </project>

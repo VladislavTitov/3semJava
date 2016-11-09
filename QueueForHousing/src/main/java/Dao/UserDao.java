@@ -16,4 +16,6 @@ public interface UserDao {
     void saveToken(String userName, String token);
 
     String isExistToken(String token);
+
+    void addQueueToUser(String userName, int queueId);
 }

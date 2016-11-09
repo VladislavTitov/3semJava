@@ -3,18 +3,17 @@ package Models;
 public class User {
 
     private final String user_name;
-
     private final String password;
-
     private final boolean remember;
-
     private final String token;
+    private final String dateRegistration;
 
     public static class Builder{
         private String user_name;
         private String password;
         private String token;
         private boolean remember;
+        private String dateRegistration;
 
         public Builder setUserName(String user_name){
             this.user_name = user_name;
@@ -36,6 +35,11 @@ public class User {
             return this;
         }
 
+        public Builder setDateRegistration(String dateRegistration) {
+            this.dateRegistration = dateRegistration;
+            return this;
+        }
+
         public User build(){
             return new User(this);
         }
@@ -47,6 +51,7 @@ public class User {
         this.password = builder.password;
         this.remember = builder.remember;
         this.token = builder.token;
+        this.dateRegistration = builder.dateRegistration;
     }
 
     public String getUser_name() {
@@ -63,5 +68,9 @@ public class User {
 
     public String getToken(){
         return token;
+    }
+
+    public String getDateRegistration() {
+        return dateRegistration;
     }
 }

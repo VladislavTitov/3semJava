@@ -1,7 +1,8 @@
-import Utils.MD5;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(MD5.generateHash("12345678"));
+        String a = "012";
+        System.out.println(Integer.parseInt(a));
     }
 }

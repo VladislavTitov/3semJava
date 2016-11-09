@@ -44,7 +44,7 @@
 
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Выйти</a></li>
+            <li><a href="/signout">Выйти</a></li>
         </ul>
     </div>
 
@@ -60,9 +60,11 @@
     <div class="col-lg-6 col-lg-offset-3 block">
         <h3>Наши поздравяления! Вы встали в очередь на жилье!</h3>
         <hr>
-        <h4>Ваше место в очереди: <span class="success-info">2932</span></h4>
-        <h4>Ваши льготы: <span class="success-info">первоочередное</span></h4>
-        <h4>Ваш id: <span class="success-info"><тут айди></span></h4>
+        <h4>Ваш id: <span class="success-info"><%=session.getAttribute("id")%></span></h4>
+        <%--Add condition about queue came--%>
+        <h4>Когда ваша очередь подойдет, вы сможете узать об этом на этой странице!</h4>
+        <h4>Инфо: <span class="success-info"> </span></h4>
+        <h4>Ваши льготы: <span class="success-info"> </span></h4>
     </div>
 </div>
 
