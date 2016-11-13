@@ -72,15 +72,23 @@ public class Main {
                                 "Weather",
                                 JOptionPane.PLAIN_MESSAGE);
 
-                        AllWeather weather = CityWeather.getWeather(cityName);
+                        AllWeather weather = CityWeather.getWeather(cleanString(cityName));
 
-                        JOptionPane.showMessageDialog(
-                                null,
-                                weather.getName() + "\n" +
-                                        Math.round(weather.getMain().getTemp() - 273.15) + " °C\n" +
-                                        weather.getWeather().get(0).getDescription()
+                        if (weather.getError() == null) {
+                            if (weather.getCod() == 200) {
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        weather.getName() + "\n" +
+                                                Math.round(weather.getMain().getTemp() - 273.15) + " °C\n" +
+                                                weather.getWeather().get(0).getDescription()
 
-                        );
+                                );
+                            } else {
+                                JOptionPane.showMessageDialog(null, weather.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, weather.getError().substring(0, 3));
+                        }
 
 
                     }
@@ -97,5 +105,15 @@ public class Main {
         frame.setJMenuBar(bar);
         frame.setBounds(300, 300, 500, 500);
         frame.setVisible(true);
+    }
+
+    private static String cleanString(String s){
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != ' '){
+                builder.append(s.charAt(i));
+            }
+        }
+        return builder.toString();
     }
 }

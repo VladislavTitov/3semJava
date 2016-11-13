@@ -45,6 +45,9 @@ public class AllWeather {
     @SerializedName("cod")
     @Expose
     private Integer cod;
+    @SerializedName("message")
+    @Expose
+    private String message;
 
     private String error;
 
@@ -54,6 +57,14 @@ public class AllWeather {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     /**

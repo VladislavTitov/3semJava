@@ -42,6 +42,18 @@ public class CityWeather {
                     builder.append(readedLine);
                 }
                 connection.disconnect();
+            }else {
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(
+                                connection.getErrorStream()
+                        )
+                );
+                String readedLine = null;
+                while ((readedLine = reader.readLine()) != null){
+                    builder.append(readedLine);
+                }
+                connection.disconnect();
+                System.out.println(builder.toString());
             }
 
         } catch (IOException e) {
@@ -52,15 +64,16 @@ public class CityWeather {
 
     private static AllWeather parseJsonString(String jsonString){
         Gson gson = new GsonBuilder().create();
+
         try {
             AllWeather allWeather = gson.fromJson(jsonString, AllWeather.class);
             return allWeather;
         }catch (JsonSyntaxException e){
-            String error = gson.fromJson(jsonString, String.class);
             AllWeather allWeather = new AllWeather();
-            allWeather.setError(error);
+            allWeather.setError(jsonString);
             return allWeather;
         }
+
 
     }
 
