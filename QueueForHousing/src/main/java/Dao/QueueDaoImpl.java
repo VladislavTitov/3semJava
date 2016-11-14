@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QueueDaoImpl implements QueueDao {
     @Override
@@ -249,17 +250,146 @@ public class QueueDaoImpl implements QueueDao {
 
     @Override
     public String findFather(String userName) {
-        return null;
+        String father = "";
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "SELECT * \n" +
+                            "FROM (SELECT father_id" +
+                            "   FROM (SELECT family_id" +
+                            "       FROM (SELECT housing_id" +
+                            "           FROM (SELECT queue_id" +
+                            "               FROM \"Users\" WHERE user_name = ?) AS qId" +
+                            "           NATURAL JOIN \"Queue\") AS hId" +
+                            "       NATURAL JOIN \"Housing\") AS famId" +
+                            "   NATURAL JOIN \"Family\") AS fathId " +
+                            "NATURAL JOIN \"Father\";"
+            );
+
+            statement.setString(1, userName);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()){
+                father = rs.getString("father_surname")+" "+rs.getString("father_name")+" "+rs.getString("father_patronymic");
+            }
+            if (rs.next()){
+                throw new IllegalArgumentException("Table Father contain two father");
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return father;
     }
 
     @Override
     public String findMother(String userName) {
-        return null;
+        String mother = "";
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "SELECT * \n" +
+                            "FROM (SELECT mother_id " +
+                            "   FROM (SELECT family_id" +
+                            "       FROM (SELECT housing_id" +
+                            "           FROM (SELECT queue_id" +
+                            "               FROM \"Users\" WHERE user_name = ?) AS qId" +
+                            "           NATURAL JOIN \"Queue\") AS hId" +
+                            "       NATURAL JOIN \"Housing\") AS famId" +
+                            "   NATURAL JOIN \"Family\") AS mothId " +
+                            "NATURAL JOIN \"Mother\";"
+            );
+
+            statement.setString(1, userName);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()){
+                mother = rs.getString("mother_surname")+" "+rs.getString("mother_name")+" "+rs.getString("mother_patronymic");
+            }
+            if (rs.next()){
+                throw new IllegalArgumentException("Table Mother contain two mother");
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return mother;
     }
 
     @Override
     public String findChildren(String userName) {
-        return null;
+        StringBuilder children = new StringBuilder();
+        try {
+            List<String> childrenList = new ArrayList<>();
+            int fatherId = -1;
+            int motherId = -1;
+
+            PreparedStatement statementF = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "SELECT father_id" +
+                            "   FROM (SELECT family_id" +
+                            "       FROM (SELECT housing_id" +
+                            "           FROM (SELECT queue_id" +
+                            "               FROM \"Users\" WHERE user_name = ?) AS qId" +
+                            "           NATURAL JOIN \"Queue\") AS hId" +
+                            "       NATURAL JOIN \"Housing\") AS famId" +
+                            "   NATURAL JOIN \"Family\";"
+            );
+
+            statementF.setString(1, userName);
+
+            ResultSet rsF = statementF.executeQuery();
+
+            if (rsF.next()){
+                fatherId = rsF.getInt("father_id");
+            }
+            if (rsF.next()){
+                throw new IllegalArgumentException("2 father in findChildren()");
+            }
+
+            PreparedStatement statementM = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "SELECT mother_id " +
+                            "FROM (SELECT family_id " +
+                            "    FROM (SELECT housing_id " +
+                            "        FROM (SELECT queue_id " +
+                            "            FROM \"Users\" WHERE user_name = ?) AS qId " +
+                            "        NATURAL JOIN \"Queue\") AS hId " +
+                            "    NATURAL JOIN \"Housing\") AS famId " +
+                            "NATURAL JOIN \"Family\";"
+            );
+
+            statementM.setString(1, userName);
+
+            ResultSet rsM = statementM.executeQuery();
+
+            if (rsM.next()){
+                motherId = rsM.getInt("mother_id");
+            }
+            if (rsM.next()){
+                throw new IllegalArgumentException("2 mother in findChildren()");
+            }
+
+            PreparedStatement statementCh = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                "SELECT * FROM \"Children\" WHERE father_id = ? AND mother_id = ?;"
+            );
+
+            statementCh.setInt(1, fatherId);
+            statementCh.setInt(2, motherId);
+
+            ResultSet rsCh = statementCh.executeQuery();
+
+            while (rsCh.next()){
+                childrenList.add(rsCh.getString("child_surname") + " " + rsCh.getString("child_name") + " " + rsCh.getString("child_patronymic"));
+            }
+
+            for (String child : childrenList) {
+                children.append(child);
+                children.append(' ');
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return children.toString();
     }
 
     @Override
@@ -285,7 +415,43 @@ public class QueueDaoImpl implements QueueDao {
             e.printStackTrace();
         }
 
-
         return userId;
+    }
+
+    @Override
+    public int findPromotions(String userName) {
+
+        int promotions = -1;
+
+        try {
+            PreparedStatement statement = ConnectionToDb.getInstance().getConnection().prepareStatement(
+                    "SELECT * FROM (SELECT queue_id FROM \"Users\" WHERE user_name = ?) As q NATURAL JOIN \"Queue\";"
+            );
+
+            statement.setString(1, userName);
+
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()){
+                promotions = 0;
+                if (rs.getBoolean("promotions")){
+                    promotions += 100;
+                }
+                if (rs.getBoolean("out_of_queue")){
+                    promotions += 10;
+                }
+                if (rs.getBoolean("first_of_queue")){
+                    promotions += 1;
+                }
+            }
+            if (rs.next()){
+                throw new IllegalArgumentException("2 promotions in findPromotions()");
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return promotions;
     }
 }

@@ -16,6 +16,8 @@ public class SuccessServlet extends HttpServlet{
 
         QueueService queueService = ServiceFactory.getInstance().getQueueService();
         req.getSession().setAttribute("id", queueService.findId((String)req.getSession().getAttribute("current_user")));
+        req.getSession().setAttribute("family", queueService.findFamily((String)req.getSession().getAttribute("current_user")));
+        req.getSession().setAttribute("promotions", queueService.findPromotions((String)req.getSession().getAttribute("current_user")));
 
         req.getRequestDispatcher("/success.jsp").forward(req, resp);
     }

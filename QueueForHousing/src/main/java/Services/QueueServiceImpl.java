@@ -66,12 +66,34 @@ public class QueueServiceImpl implements QueueService {
     }
 
     @Override
-    public String findInfo(String userName) {
-        return null;
+    public String findFamily(String userName) {
+        QueueDao queueDao = DaoFactory.getInstance().getQueueDao();
+        String family =
+                "Отец: " + queueDao.findFather(userName) + " Мать: " + queueDao.findMother(userName)
+                + " Дети: " + queueDao.findChildren(userName);
+        return family;
     }
 
     @Override
     public String findPromotions(String userName) {
-        return null;
+        QueueDao queueDao = DaoFactory.getInstance().getQueueDao();
+        int promotions = queueDao.findPromotions(userName);
+        switch (promotions){
+            case 0:
+                return "Вам не предусмотрены льготы!";
+            case 1:
+                return "Вы проходите вне очереди!";
+            case 10:
+                return "Вы проходите в первую очередь!";
+            case 100:
+                return "Вам предусмотрены льготы!";
+            case 101:
+                return "Вы проходите вне очереди, и вам предусмотрены льготы!";
+            case 110:
+                return "Вы проходите в первую очередь, и вам предусмотрены льготы!";
+            default:
+                return "Ошибка!";
+        }
+
     }
 }

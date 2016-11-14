@@ -12,7 +12,7 @@ public interface QueueService {
 
     int findId(String userName);
 
-    String findInfo(String userName);
+    String findFamily(String userName);
 
     String findPromotions(String userName);
 }

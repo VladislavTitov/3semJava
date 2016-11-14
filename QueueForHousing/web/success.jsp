@@ -58,13 +58,13 @@
 
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 block">
-        <h3>Наши поздравяления! Вы встали в очередь на жилье!</h3>
+        <h3>Наши поздравления! Вы встали в очередь на жилье!</h3>
         <hr>
         <h4>Ваш id: <span class="success-info"><%=session.getAttribute("id")%></span></h4>
         <%--Add condition about queue came--%>
-        <h4>Когда ваша очередь подойдет, вы сможете узать об этом на этой странице!</h4>
-        <h4>Инфо: <span class="success-info"> </span></h4>
-        <h4>Ваши льготы: <span class="success-info"> </span></h4>
+        <h4>Когда ваша очередь подойдет, вы сможете узнать об этом на этой странице!</h4>
+        <h4>Состав семьи: <span class="success-info"><%=session.getAttribute("family")%></span></h4>
+        <h4>Ваши льготы: <span class="success-info"><%=session.getAttribute("promotions")%></span></h4>
     </div>
 </div>
 

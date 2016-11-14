@@ -44,4 +44,6 @@ public interface QueueDao {
 
     int findId(String userName);
 
+    int findPromotions(String userName);
+
 }
