@@ -86,7 +86,6 @@ public class DrawArea extends JComponent implements Observer{
             g2 = (Graphics2D) image.getGraphics();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             clear();
-            g2.drawRect(50, 50, 300, 200);
         }
 
 
