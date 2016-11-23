@@ -3,6 +3,7 @@ import observe.Observable;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.metal.MetalScrollButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ public class DrawFrame extends JFrame implements ActionListener{
     JSlider slider;
     JButton clear;
     JButton mirror;
-    JButton turn;
+    JButton turnRight;
     DrawArea drawArea;
 
 
@@ -48,24 +49,22 @@ public class DrawFrame extends JFrame implements ActionListener{
         mirror = new JButton("Reflect");
         mirror.addActionListener(this);
 
-        turn = new JButton("Turn");
-        turn.addActionListener(this);
+        turnRight = new JButton("Turn right");
+        turnRight.addActionListener(this);
 
         controls.add(fill);
         controls.add(slider);
         controls.add(clear);
         controls.add(mirror);
-        controls.add(turn);
+        controls.add(turnRight);
 
-        JScrollPane scrollPane = new JScrollPane(drawArea);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         getContentPane().add(controls, BorderLayout.NORTH);
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(drawArea, BorderLayout.CENTER);
+
 
         pack();
-        setSize(600, 600);
+        setSize(900, 1000);
         setVisible(true);
 
     }
@@ -73,8 +72,10 @@ public class DrawFrame extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == fill){
             drawArea.fill();
-        }else if (e.getSource() == clear){
+        }else if (e.getSource() == clear) {
             drawArea.clear();
+        }else if (e.getSource() == turnRight){
+            drawArea.turn();
         }
     }
 }
