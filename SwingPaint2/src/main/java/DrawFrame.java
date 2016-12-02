@@ -15,6 +15,8 @@ public class DrawFrame extends JFrame implements ActionListener{
     JButton clear;
     JButton mirror;
     JButton turnRight;
+    JButton animate;
+    JButton choose;
     DrawArea drawArea;
 
 
@@ -52,12 +54,19 @@ public class DrawFrame extends JFrame implements ActionListener{
         turnRight = new JButton("Turn right");
         turnRight.addActionListener(this);
 
+        animate = new JButton("Animate");
+        animate.addActionListener(this);
+
+        choose = new JButton("Choose file");
+        choose.addActionListener(this);
+
         controls.add(fill);
         controls.add(slider);
         controls.add(clear);
         controls.add(mirror);
         controls.add(turnRight);
-
+        controls.add(animate);
+        controls.add(choose);
 
         getContentPane().add(controls, BorderLayout.NORTH);
         getContentPane().add(drawArea, BorderLayout.CENTER);
@@ -76,6 +85,16 @@ public class DrawFrame extends JFrame implements ActionListener{
             drawArea.clear();
         }else if (e.getSource() == turnRight){
             drawArea.turn();
+        }else if (e.getSource() == animate){
+            if (animate.getText().equals("Animate")){
+                animate.setText("Stop");
+                drawArea.animate();
+            }else {
+                animate.setText("Animate");
+                drawArea.stopAnimate();
+            }
+        }else if (e.getSource() == choose){
+            drawArea.choose();
         }
     }
 }
