@@ -101,8 +101,10 @@ public class Main {
         panelRight.add(btnWeather);
 
 
+
         frame.getContentPane().add(panelRight, BorderLayout.EAST);
         frame.setJMenuBar(bar);
+        frame.pack();
         frame.setBounds(300, 300, 500, 500);
         frame.setVisible(true);
     }
