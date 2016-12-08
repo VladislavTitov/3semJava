@@ -32,7 +32,7 @@ public class SignUpServlet extends HttpServlet{
         int id = userDao.addUser(user_name, age, city);
 
         resp.setContentType("text/plain");
-        /*resp.getWriter().println(""+id);*/
+        resp.getWriter().println(""+id);
 
 
 
