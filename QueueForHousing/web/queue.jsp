@@ -191,7 +191,7 @@
             <div class="row" style="margin-bottom: 30px;">
                 <div class="col-lg-3 col-lg-offset-9">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Встать в очередь</button>
+                        <input type="submit" name="Встать в очередь" id="enter-queue" class="btn btn-primary" style="width: 100%;" disabled="disabled"/>
                     </div>
                 </div>
             </div>
@@ -210,6 +210,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#select-count-rooms option").change(function () {
+
+        })
+    })
+</script>
 
 <script type="application/javascript">
     var c = 0;

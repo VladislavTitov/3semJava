@@ -1,14 +1,12 @@
 package Factories;
 
-import Dao.QueueDao;
-import Dao.QueueDaoImpl;
-import Dao.UserDao;
-import Dao.UserDaoImpl;
+import Dao.*;
 
 public class DaoFactory {
     private static DaoFactory ourInstance;
     private UserDao userDao;
     private QueueDao queueDao;
+    private AdminDao adminDao;
 
     public static DaoFactory getInstance() {
         return ourInstance;
@@ -17,6 +15,7 @@ public class DaoFactory {
     private DaoFactory() {
         userDao = new UserDaoImpl();
         queueDao = new QueueDaoImpl();
+        adminDao = new AdminDaoImpl();
     }
 
     static {
@@ -29,5 +28,9 @@ public class DaoFactory {
 
     public QueueDao getQueueDao() {
         return queueDao;
+    }
+
+    public AdminDao getAdminDao() {
+        return adminDao;
     }
 }

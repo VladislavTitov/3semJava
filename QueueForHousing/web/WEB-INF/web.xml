@@ -60,6 +60,16 @@
         <url-pattern>/signout</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>Servlets.AdminServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
     <!--Filters-->
 
     <filter>
