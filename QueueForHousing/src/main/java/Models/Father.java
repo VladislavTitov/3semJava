@@ -49,4 +49,16 @@ public class Father {
     public String getPatronymic() {
         return patronymic;
     }
+
+
+
+
+
+    public void clean(){
+
+    }
+
+    public  boolean isEmpty(){
+        return false;
+    }
 }

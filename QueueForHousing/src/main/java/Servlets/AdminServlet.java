@@ -23,10 +23,16 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AdminDao adminDao = DaoFactory.getInstance().getAdminDao();
         PrintWriter writer = resp.getWriter();
-        ResultSet rs = adminDao.selectQueue();
+        boolean deleted = req.getParameter("deleted").equals("true");
+        ResultSet rs;
+        if (deleted) {
+            rs = adminDao.selectQueue(true);
+        }else {
+            rs = adminDao.selectQueue(false);
+        }
         resp.setContentType("text/html;charset=UTF-8");
         writer.print("<tr><th>№ Queue</th><th>№ family</th><th>№ housing</th><th>Application date</th><th>Promotions</th><th>Out of queue</th>" +
-                "<th>First of queue</th></tr>");
+                "<th>First of queue</th><th>Options</th></tr>");
         try {
             while (rs.next()){
                 writer.print("<tr>");
@@ -37,6 +43,8 @@ public class AdminServlet extends HttpServlet {
                 writer.print("<td>" + rs.getBoolean("promotions") + "</td>");
                 writer.print("<td>" + rs.getBoolean("out_of_queue") + "</td>");
                 writer.print("<td>" + rs.getBoolean("first_of_queue") + "</td>");
+                String classD = req.getParameter("deleted").equals("true") ? "deleted" : "normal";
+                writer.print("<td><a href='#' onclick='deleteRow(this);' class='"+ classD +"'>Delete</a></td>  ");
                 writer.print("</tr>");
             }
         } catch (SQLException e) {

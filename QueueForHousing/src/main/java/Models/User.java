@@ -4,15 +4,11 @@ public class User {
 
     private final String user_name;
     private final String password;
-    private final boolean remember;
-    private final String token;
     private final String dateRegistration;
 
     public static class Builder{
         private String user_name;
         private String password;
-        private String token;
-        private boolean remember;
         private String dateRegistration;
 
         public Builder setUserName(String user_name){
@@ -22,16 +18,6 @@ public class User {
 
         public Builder setPassword(String password){
             this.password = password;
-            return this;
-        }
-
-        public Builder setToken(String token){
-            this.token = token;
-            return this;
-        }
-
-        public Builder setRemember(boolean remember){
-            this.remember = remember;
             return this;
         }
 
@@ -49,8 +35,6 @@ public class User {
     private User(Builder builder){
         this.user_name = builder.user_name;
         this.password = builder.password;
-        this.remember = builder.remember;
-        this.token = builder.token;
         this.dateRegistration = builder.dateRegistration;
     }
 
@@ -60,14 +44,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public boolean getRemember() {
-        return remember;
-    }
-
-    public String getToken(){
-        return token;
     }
 
     public String getDateRegistration() {

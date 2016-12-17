@@ -21,13 +21,15 @@ public class AdminDaoImpl implements AdminDao{
 
 //    TODO i should, no, i must use db view here!
     @Override
-    public ResultSet selectQueue() {
+    public ResultSet selectQueue(boolean deleted) {
         ResultSet rs = null;
 
         try {
             PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM \"Queue\";"
+                    "SELECT * FROM \"Queue\" WHERE deleted = ?;"
             );
+
+            statement.setBoolean(1, deleted);
 
             rs = statement.executeQuery();
 

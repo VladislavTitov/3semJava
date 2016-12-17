@@ -11,12 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class QueueServlet extends HttpServlet{
 
+    QueueService queueService;
+
+    @Override
+    public void init() throws ServletException {
+        queueService = ServiceFactory.getInstance().getQueueService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        QueueService queueService = ServiceFactory.getInstance().getQueueService();
         if (queueService.checkRecorded((String) req.getSession().getAttribute("current_user"))){
             resp.sendRedirect("/success");
         }else {
@@ -26,63 +33,95 @@ public class QueueServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/plain;charset=UTF-8");
+        resp.setCharacterEncoding("utf-8");
+        if (req.getParameter("save") != null && req.getParameter("save").equals("true")){
+            resp.getWriter().write("/success");
 
-        QueueService queueService = ServiceFactory.getInstance().getQueueService();
+        }else if (req.getParameter("mode").equals("father")){
 
-        Father father = new Father.Builder()
-                .setSurname(req.getParameter("father-surname"))
-                .setName(req.getParameter("father-name"))
-                .setPatronymic(req.getParameter("father-patronymic"))
-                .build();
-        Mother mother = new Mother.Builder()
-                .setSurname(req.getParameter("mother-surname"))
-                .setName(req.getParameter("mother-name"))
-                .setPatronymic(req.getParameter("mother-patronymic"))
-                .build();
+            System.out.println(req.getParameterMap().toString());
+            resp.getWriter().print("father");
+            resp.sendError(400);
 
-        int childrenCount = Integer.parseInt(req.getParameter("children-count"));
-        ArrayList<Child> children = new ArrayList<>();
+        }else if (req.getParameter("mode").equals("mother")){
 
-        for (int i = 0; i < childrenCount; i++) {
-            String surname = req.getParameter("child-surname["+ i +"]");
-            String name = req.getParameter("child-name["+ i +"]");
-            String patronymic = req.getParameter("child-patronymic["+ i +"]");
-            if (!surname.equals("") && !name.equals("") && !patronymic.equals("")){
-                children.add(new Child.Builder()
-                        .setSurname(surname)
-                        .setName(name)
-                        .setPatronymic(patronymic)
-                        .build()
-                );
+            System.out.println(req.getParameterMap().toString());
+            resp.getWriter().print("mother");
+
+        }else if (req.getParameter("mode").equals("children")){
+
+            Map<String, String[]> map = req.getParameterMap();
+            for (Map.Entry<String, String[]> entry: map.entrySet()){
+                System.out.println(entry.getKey() + " : " + entry.getValue()[0]);
             }
+            resp.getWriter().print("children");
+
+        }else if (req.getParameter("mode").equals("others")){
+
+            System.out.println("this is others");
+            Map<String, String[]> map = req.getParameterMap();
+            for (Map.Entry<String, String[]> entry: map.entrySet()){
+                System.out.println(entry.getKey() + " : " + entry.getValue()[0]);
+            }
+            resp.getWriter().print("others");
+        }else {
+
+            Father father = new Father.Builder()
+                    .setSurname(req.getParameter("father-surname"))
+                    .setName(req.getParameter("father-name"))
+                    .setPatronymic(req.getParameter("father-patronymic"))
+                    .build();
+            Mother mother = new Mother.Builder()
+                    .setSurname(req.getParameter("mother-surname"))
+                    .setName(req.getParameter("mother-name"))
+                    .setPatronymic(req.getParameter("mother-patronymic"))
+                    .build();
+
+            int childrenCount = Integer.parseInt(req.getParameter("children-count"));
+            ArrayList<Child> children = new ArrayList<>();
+
+            for (int i = 0; i < childrenCount; i++) {
+                String surname = req.getParameter("child-surname[" + i + "]");
+                String name = req.getParameter("child-name[" + i + "]");
+                String patronymic = req.getParameter("child-patronymic[" + i + "]");
+                if (!surname.equals("") && !name.equals("") && !patronymic.equals("")) {
+                    children.add(new Child.Builder()
+                            .setSurname(surname)
+                            .setName(name)
+                            .setPatronymic(patronymic)
+                            .build()
+                    );
+                }
+            }
+
+            Family family = new Family.Builder()
+                    .setFather(father)
+                    .setMother(mother)
+                    .setChildren(children)
+                    .build();
+
+            Wishes wishes = new Wishes.Builder()
+                    .setDistrict(req.getParameter("district"))
+                    .setRoomsCount(Integer.parseInt(req.getParameter("rooms-count")))
+                    .setKindergarden(req.getParameter("kindergarten") != null)
+                    .setSchool(req.getParameter("school") != null)
+                    .build();
+
+            Housing housing = new Housing.Builder()
+                    .setFamily(family)
+                    .setWishes(wishes)
+                    .setCondition(Integer.parseInt(req.getParameter("condition")))
+                    .build();
+
+            Queue queue = queueService.givePromotions(new Queue.Builder()
+                    .setHousing(housing)
+                    .setDate(LocalDate.now())
+                    .build());
+
+            queueService.save((String) req.getSession().getAttribute("current_user"), queue);
+
+            resp.sendRedirect("/success");
         }
-
-        Family family = new Family.Builder()
-                .setFather(father)
-                .setMother(mother)
-                .setChildren(children)
-                .build();
-
-        Wishes wishes = new Wishes.Builder()
-                .setDistrict(req.getParameter("district"))
-                .setRoomsCount(Integer.parseInt(req.getParameter("rooms-count")))
-                .setKindergarden(req.getParameter("kindergarten") != null)
-                .setSchool(req.getParameter("school") != null)
-                .build();
-
-        Housing housing = new Housing.Builder()
-                .setFamily(family)
-                .setWishes(wishes)
-                .setCondition(Integer.parseInt(req.getParameter("condition")))
-                .build();
-
-        Queue queue = queueService.givePromotions(new Queue.Builder()
-                .setHousing(housing)
-                .setDate(LocalDate.now())
-                .build());
-
-        queueService.save((String) req.getSession().getAttribute("current_user"), queue);
-
-        resp.sendRedirect("/success");
     }
 }

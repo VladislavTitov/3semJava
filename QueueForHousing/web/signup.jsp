@@ -40,7 +40,7 @@
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 join-form-block block">
         <h2 class="form-header">Регистрация</h2>
-        <form class="form-horizontal join-form col-lg-8 col-lg-offset-2" role="form" method="post" action="/signup">
+        <form class="form-horizontal join-form col-lg-8 col-lg-offset-2" role="form" method="post" action="/signup" style="display: block;">
             <div class="form-group">
                 <label for="email-signup-field" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">

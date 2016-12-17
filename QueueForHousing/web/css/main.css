@@ -4,23 +4,24 @@ body {
 }
 .block {
   -webkit-box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
-     -moz-box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
-          box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
+  -moz-box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
+  box-shadow: 2px 2px 8px 0px rgba(163,157,163,0.5);
   background: #fff;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .banner {
   border-radius: 4px;
-  margin-top: 50px;
+  margin-top: 25px;
   text-align: center;
   padding: 50px 0;
 }
 .join-form-block {
-  margin-top: 50px;
+  margin-top: 25px;
   border-radius: 4px;
 }
 .form-header {
-  padding: 25px 0;
+  padding: 0 0 10px 0;
   border-bottom: 1px solid black;
 }
 .join-form {
@@ -71,9 +72,22 @@ footer {
 .success-info {
   font-weight: 300;
 }
+div>input[name="Отправить"]{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+form{
+  display: none;
+}
+h2{
+  cursor: pointer;
+}
 h4 {
   margin-top: 20px;
 }
 h4:last-child {
   margin-bottom: 50px;
+}
+#save-btn{
+  margin: 20px 0 30px 0;
 }

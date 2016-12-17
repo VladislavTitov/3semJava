@@ -1,32 +1,16 @@
 package Services;
 
-import Dao.AdminDao;
-import Factories.DaoFactory;
+/**
+ * Created by Vladislav on 16.12.2016.
+ */
+public class AdminServiceImpl implements AdminService {
+    @Override
+    public void getNormalQueue() {
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public class AdminServiceImpl implements AdminService{
-
-    AdminDao adminDao;
-
-    public AdminServiceImpl() {
-        this.adminDao = DaoFactory.getInstance().getAdminDao();
     }
 
     @Override
-    public String createQueueTable() {
-        ResultSet set = adminDao.selectQueue();
+    public void getDeletedQueue() {
 
-        try {
-            while (set.next()){
-
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

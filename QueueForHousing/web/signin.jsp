@@ -38,7 +38,7 @@
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 join-form-block block">
         <h2 class="form-header">Вход</h2>
-        <form class="form-horizontal join-form col-lg-8 col-lg-offset-2" role="form" action="/signin" method="post">
+        <form class="form-horizontal join-form col-lg-8 col-lg-offset-2" role="form" action="/signin" method="post" style='display: block;'>
             <div class="form-group">
                 <label for="email-signin-field" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-10">

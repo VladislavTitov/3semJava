@@ -42,9 +42,18 @@
         <a href="#" class="navbar-brand"><%=request.getSession().getAttribute("current_user")%></a>
     </div>
 
-    <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/signout">Выйти</a></li>
+    <div class='collapse navbar-collapse'>
+        <ul class='nav navbar-nav navbar-right'>
+            <li class='dropdown'>
+                <a href='#' id='options-drop' class='dropdown-toggle' data-toggle='dropdown' role='button'>Опции</a>
+                <ul class='dropdown-menu' role='menu' aria-labelledby='options-drop'>
+                    <li role='presentation'><a href='#'>Изменить данные</a></li>
+                    <li role='presentation' class='divider'></li>
+                    <li role='presentation'><a href='#'>Удалить аккаунт</a></li>
+                    <li role='presentation' class='divider'></li>
+                    <li role='presentation'><a href='/signout'>Выйти</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 

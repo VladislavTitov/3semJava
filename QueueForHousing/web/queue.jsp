@@ -41,9 +41,18 @@
         <a href="#" class="navbar-brand"><%=request.getSession().getAttribute("current_user")%></a>
     </div>
 
-    <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/signout">Выйти</a></li>
+    <div class='collapse navbar-collapse'>
+        <ul class='nav navbar-nav navbar-right'>
+            <li class='dropdown'>
+                <a href='#' id='options-drop' class='dropdown-toggle' data-toggle='dropdown' role='button'>Опции</a>
+                <ul class='dropdown-menu' role='menu' aria-labelledby='options-drop'>
+                    <li role='presentation'><a href='#'>Изменить данные</a></li>
+                    <li role='presentation' class='divider'></li>
+                    <li role='presentation'><a href='#'>Удалить аккаунт</a></li>
+                    <li role='presentation' class='divider'></li>
+                    <li role='presentation'><a href='/signout'>Выйти</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 
@@ -52,153 +61,163 @@
 <body>
 <div class="container-fluid">
     <div class="col-lg-6 col-lg-offset-3 banner block">
-        <h1>Очередь на жилье</h1>
+        <h1>Регистрация на очередь</h1>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="col-lg-8 col-lg-offset-2 block join-form-block">
-        <h2 class="form-header">Регистрация семьи на очередь</h2>
-        <form class="form-inline queue-form" role="form" action="/queue" method="post">
-            <!-- ROW -->
-            <div class="row">
-                <div class="label col-lg-1">
-                    <label class="queue-label" for="surname-father-input">Отец</label>
-                </div>
-                <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="surname-father-input" name="father-surname" placeholder="Фамилия">
-                </div>
-                <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="name-father-input" name="father-name" placeholder="Имя">
-                </div>
-                <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="patronymic-father-input" name="father-patronymic" placeholder="Отчество">
-                </div>
+<div class='container'>
+    <div class='col-lg-8 col-lg-offset-2 block join-form-block'>
+        <h2 class='form-header'>Отец</h2>
+        <form class='form-inline queue-form' role='form' action='/queue' method="post" id="father-form">
+            <div class='form-group form-group-list'>
+                <input type='text' class='form-control' id='surname-father-input' name='father_surname' placeholder='Фамилия'>
             </div>
-
-            <!-- ROW -->
-            <div class="row">
-                <div class="label col-lg-1">
-                    <label class="queue-label" for="surname-mother-input">Мать</label>
-                </div>
-                <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="surname-mother-input" name="mother-surname" placeholder="Фамилия">
-                </div>
-                <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="name-mother-input" name="mother-name" placeholder="Имя">
-                </div>
-                <div class="form-group form-group-list">
-                    <input type="text" class="form-control" id="patronymic-mother-input" name="mother-patronymic" placeholder="Отчество">
-                </div>
+            <div class='form-group form-group-list'>
+                <input type='text' class='form-control' id='name-father-input' name='father_name' placeholder='Имя'>
             </div>
-            <!-- ROW -->
-
-<div class="row" id="child">
-<div class="label col-lg-1">
-<label class="queue-label" for="surname-child-input[0]">Дети</label>
-</div>
-<span id="child[0]">
-<div class="form-group form-group-list">
-<input type="text" class="form-control" id="surname-child-input[0]" name="child-surname[0]" placeholder="Фамилия">
-</div>
-<div class="form-group form-group-list">
-<input type="text" class="form-control" id="name-child-input[0]" name="child-name[0]" placeholder="Имя">
-</div>
-<div class="form-group form-group-list">
-<input type="text" class="form-control" id="patronymic-child-input[0]" name="child-patronymic[0]" placeholder="Отчество">
-</div>
-<input class="btn btn-primary" type="button" name="subtraction" value="-" onclick="removeCh(0)">
-</span><br>
-<div class="row" style="margin-bottom: 30px;">
-<div class="col-lg-1 col-lg-offset-10">
-<div class="col-sm-offset-2 col-sm-10">
-<input type="button" class="btn btn-primary" onclick="addChild()" value="+">
-</div>
-</div>
-</div>
-</div>
-
-            <div class="row">
-                <div class="label col-lg-1">
-                    <label  for="surname-child-input[0]"></label>
-                </div>
-                <div class="col-lg-2">
-                    <label for="child-count" style="margin-top: 10px;">Количество детей</label>
-                </div>
-
-                <div class="col-lg-1">
-                    <input class="form-control" style="width: 100%;" readonly type="text" id="child-count" value="1" name="children-count">
-                </div>
-
+            <div class='form-group form-group-list'>
+                <input type='text' class='form-control' id='patronymic-father-input' name='father_patronym' placeholder='Отчество'>
             </div>
-
-
-
-
-
-            <!-- ROW -->
-            <div class="row">
-                <div class="label col-lg-1">
-                    <label class="queue-label" for="select-district">Прочее</label>
-                </div>
-                <div class="form-group form-group-list">
-                    <!--  <textarea class="form-control" rows="3" cols="68" placeholder="Жилищные условия"></textarea> -->
-
-                    <div class="form-group">
-                        <label for="select-district" style="margin-right: 15px;">Район</label>
-
-                        <select class="form-control" id="select-district" name="district">
-                            <option value="center">Центр</option>
-                            <option value="new">Новостройки</option>
-                            <option value="sleep">Спальный район</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 10px;">
-                        <label for="select-count-rooms" style="margin-right: 15px;">Количество комнат</label>
-
-                        <select class="form-control" id="select-count-rooms" name="rooms-count">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 10px;">
-                        <label class="checkbox-inline">
-                            <input name = "kindergarten" type="checkbox" id="inlineCheckbox1" value="true"> Детский сад/Ясли
-                        </label>
-                        <label class="checkbox-inline">
-                            <input name = "school" type="checkbox" id="inlineCheckbox2" value="true"> Школа
-                        </label>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 10px;">
-                        <label for="select-condition" style="margin-right: 10px;">Жилищные условия</label>
-                        <select name="condition" id="select-condition" class="form-control">
-                            <option value="1">Ужасное</option>
-                            <option value="2">Плохое</option>
-                            <option value="3">Среднее</option>
-                            <option value="4">Хорошее</option>
-                            <option value="0">Без жилья</option>
-                        </select>
-                    </div>
-                    <!-- <textarea class="form-control" rows="3" cols="68" style="margin: 30px 0;" placeholder="Пожелания на район"></textarea> -->
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 30px;">
-                <div class="col-lg-3 col-lg-offset-9">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <input type="submit" name="Встать в очередь" id="enter-queue" class="btn btn-primary" style="width: 100%;" disabled="disabled"/>
-                    </div>
+            <div class='col-lg-3 col-lg-offset-9'>
+                <div class='col-sm-offset-2 col-sm-10'>
+                    <input type='submit' name='Отправить' id='enter-father' class='btn btn-primary' style='width: 100%;'
+                           data-container="body" data-toggle="popover" data-placement="top" data-content="Успешно!"/>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<br>
+
+<div class='container'>
+    <div class='col-lg-8 col-lg-offset-2 block join-form-block'>
+        <h2 class='form-header'>Мать</h2>
+        <form class='form-inline queue-form' role='form' action='/queue' id="mother-form">
+            <!-- ROW -->
+            <div class='row'>
+                <div class='form-group form-group-list'>
+                    <input type='text' class='form-control' id='surname-mother-input' name='mother_surname' placeholder='Фамилия'>
+                </div>
+                <div class='form-group form-group-list'>
+                    <input type='text' class='form-control' id='name-mother-input' name='mother-name' placeholder='Имя'>
+                </div>
+                <div class='form-group form-group-list'>
+                    <input type='text' class='form-control' id='patronymic-mother-input' name='mother-patronym' placeholder='Отчество'>
+                </div>
+            </div>
+            <!-- ROW -->
+            <div class='col-lg-3 col-lg-offset-9'>
+                <div class='col-sm-offset-2 col-sm-10'>
+                    <input type='submit' name='Отправить' id='enter-mother' class='btn btn-primary' style='width: 100%;'
+                           data-container="body" data-toggle="popover" data-placement="top" data-content="Успешно!"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class='container'>
+    <div class='col-lg-8 col-lg-offset-2 block join-form-block'>
+        <h2 class='form-header'>Дети</h2>
+        <form id="children-form" class='form-inline queue-form' role='form' >
+
+            <div class='row child'>
+                <div class='form-group form-group-list'>
+                    <input type='text' class='form-control child-surname' id='surname-child-input-0' name='child-surname-0' placeholder='Фамилия'>
+                </div>
+                <div class='form-group form-group-list'>
+                    <input type='text' class='form-control child-name' id='name-child-input-0' name='child-name-0' placeholder='Имя'>
+                </div>
+                <div class='form-group form-group-list'>
+                    <input type='text' class='form-control child-patronym' id='patronymic-child-input-0' name='child-patronym-0' placeholder='Отчество'>
+                </div>
+                <button class='btn btn-primary' type='button' onclick="removeCh(this)"><span class='glyphicon glyphicon-minus'></span></button>
+            </div>
+
+            <div class='row' >
+                <div class='col-lg-1 col-lg-offset-10'>
+                    <div class='col-sm-offset-2 col-sm-10'>
+                        <button type='button' class='btn btn-primary' onclick="addChild()" style="padding: 5px 10px;"><span class='glyphicon glyphicon-plus'></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <input type="text" name="children-count" value="1" id="children-count" style="display: none;" />
+
+            <div class='col-lg-3 col-lg-offset-9'>
+                <div class='col-sm-offset-2 col-sm-10'>
+                    <input type='submit' name='Отправить' id='enter-children' class='btn btn-primary' style='width: 100%;'
+                           data-container="body" data-toggle="popover" data-placement="top" data-content="Успешно!"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class='container'>
+    <div class='col-lg-8 col-lg-offset-2 block join-form-block'>
+        <h2 class='form-header'>Прочее</h2>
+        <form id="others-form" class='form-inline queue-form' role='form' >
+
+            <div class='form-group form-group-list'>
+
+                <div class='form-group'>
+                    <label for='select-district' style='margin-right: 15px;'>Район</label>
+                    <select class='form-control' id='select-district' name='district'>
+                        <option value='center'>Центр</option>
+                        <option value='new'>Новостройки</option>
+                        <option value='sleep'>Спальный район</option>
+                    </select>
+                </div>
+
+                <div class='form-group' style='margin-top: 10px;'>
+                    <label for='select-count-rooms' style='margin-right: 15px;'>Количество комнат</label>
+                    <select class='form-control' id='select-count-rooms' name='rooms-count'>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                    </select>
+                </div>
+
+                <div class='row'>
+                    <label class='checkbox-inline'>
+                        <input name = 'kindergarden' type='checkbox' id='kindergarden-checkbox' value='true'> Детский сад/Ясли
+                    </label>
+                    <label class='checkbox-inline'>
+                        <input name = 'school' type='checkbox' id='school-checkbox' value='true'> Школа
+                    </label>
+                </div>
+
+                <div class='form-group' style='margin-top: 10px;'>
+                    <label for='select-condition' style='margin-right: 10px;'>Жилищные условия</label>
+                    <select name='condition' id='select-condition' class='form-control'>
+                        <option value='1'>Ужасное</option>
+                        <option value='2'>Плохое</option>
+                        <option value='3'>Среднее</option>
+                        <option value='4'>Хорошее</option>
+                        <option value='0'>Без жилья</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class='col-lg-3 col-lg-offset-9'>
+                <div class='col-sm-offset-2 col-sm-10'>
+                    <input type='submit' name='Отправить' id='enter-others' class='btn btn-primary' style='width: 100%;'
+                           data-container="body" data-toggle="popover" data-placement="top" data-content="Успешно!"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-lg-offset-4 col-lg-4">
+            <input id="save-btn" type="button" name="save" class="btn btn-primary" value="Сохранить" style="width: 100%;">
+        </div>
+    </div>
+</div>
 
 <!-- <footer>
   <div class="col-lg-2 col-lg-offset-5" style="text-align: center;">
@@ -212,45 +231,154 @@
 <script src="js/bootstrap.min.js"></script>
 
 <script>
+    var count = 0;
     $(document).ready(function () {
-        $("#select-count-rooms option").change(function () {
 
-        })
-    })
+        $("#save-btn").click(function () {
+            $.ajax({
+                url:"/queue",
+                type:"post",
+                data:"save=true",
+                success:function (response) {
+                    document.location.href = response;
+                }
+            });
+        });
+
+        $("h2").click(function () {
+            $(this).next().slideToggle();
+        });
+        
+        $("#father-form").submit(function (e) {
+            e.preventDefault();
+            var m_data = "father-surname="+$("#surname-father-input").val() +
+                            "&father-name"+ $("#name-father-input").val()+
+                            "&father-patronymic"+ $("#patronymic-father-input").val()+
+                            "&mode=father";
+
+            $.ajax({
+                type:"POST",
+                url:"/queue",
+                data:m_data,
+                success:function (response) {
+                    $("#enter-father").popover("show");
+
+                },
+                error:function () {
+                    alert("Вы ввели неверные данные! Попытайтесь снова...");
+                }
+            });
+        });
+
+        $("#mother-form").submit(function (e) {
+            e.preventDefault();
+            var m_data = "mother-surname="+$("#surname-mother-input").val() +
+                "&mother-name"+ $("#name-mother-input").val()+
+                "&mother-patronymic"+ $("#patronymic-mother-input").val()+
+                "&mode=mother";
+
+            $.ajax({
+                type:"POST",
+                url:"/queue",
+                data:m_data,
+                success:function (response) {
+                    $("#enter-mother").popover("show");
+                },
+                error:function () {
+                    alert("Вы ввели неверные данные! Попытайтесь снова...");
+                }
+            });
+        });
+
+        $("#children-form").submit(function (e) {
+            e.preventDefault();
+            var m_data = "children-count=" + $("#children-count").val();
+            for (var i = 0; i < count + 1; i++) {
+                m_data += "&child-surname["+i+"]=" + $("#surname-child-input-"+i).val() +
+                    "&child-name["+i+"]=" + $("#name-child-input-"+i).val() +
+                    "&child-patronymic["+i+"]=" + $("#patronymic-child-input-"+i).val();
+            }
+
+            m_data += "&mode=children";
+
+            $.ajax({
+                type:"POST",
+                url:"/queue",
+                data:m_data,
+                success:function (response) {
+                    $("#enter-children").popover("show");
+                },
+                error:function () {
+                    alert("Вы ввели неверные данные! Попытайтесь снова...");
+                }
+            });
+        });
+
+        $("#others-form").submit(function (e) {
+            e.preventDefault();
+            var m_data = "district=" + $("#select-district").change().val()+
+                    "&rooms-count=" + $("#select-count-rooms").change().val() +
+                    "&condition=" + $("#select-condition").change().val() +
+                    "&kindergarden=" + $("#kindergarden-checkbox").prop("checked") +
+                    "&school=" + $("#school-checkbox").prop("checked") +
+                    "&mode=others";
+
+            $.ajax({
+                type:"POST",
+                url:"/queue",
+                data:m_data,
+                success:function (response) {
+                    $("#enter-others").popover("show");
+                },
+                error:function () {
+                    alert("Вы ввели неверные данные! Попытайтесь снова...");
+                }
+            });
+        });
+
+        $("input").keyup(function (key) {
+            var value = $(this).val();
+            if (value.search(/[^a-zA-Zа-яА-Я]/i) == -1) {
+                $(this).parent().removeClass("has-error");
+                $(this).parent().addClass("has-success");
+                $("input[type=submit]").attr('disabled', false);
+            }else{
+                $(this).parent().removeClass("has-success");
+                $(this).parent().addClass("has-error");
+                $("input[type=submit]").attr('disabled', true);
+            }
+        });
+
+    });
+
+    function removeCh(btnRemove) {
+        $(document).ready(function () {
+            count--;
+            console.log("removeCh");
+            $(btnRemove).parent().detach();
+            $("div.child").each(function (i, elem) {
+                $(this).find(".child-surname").attr("name", "child-surname["+ i +"]").attr("id", "surname-child-input["+ i +"]");
+                $(this).find(".child-name").attr("name", "child-name["+ i +"]").attr("id", "name-child-input["+ i +"]");
+                $(this).find(".child-patronym").attr("name", "child-patronym["+ i +"]").attr("id", "patronymic-child-input["+ i +"]");
+            });
+
+        });
+    };
+
+    function addChild() {
+        $(document).ready(function () {
+            count++;
+            console.log("addChild");
+            var child = "<div class='row child'.><div class='form-group form-group-list'><input type='text' class='form-control child-surname' id='surname-child-input-"+ count +"' name='child-surname-"+ count +"' placeholder='Фамилия'></div><div class='form-group form-group-list'><input type='text' class='form-control child-name' id='name-child-input-"+ count +"' name='child-name-"+ count +"' placeholder='Имя'></div><div class='form-group form-group-list'><input type='text' class='form-control child-patronym' id='patronymic-child-input-"+ count +"' name='child-patronym-"+ count +"' placeholder='Отчество'></div><button class='btn btn-primary' type='button' value='-' onclick=\"removeCh(this)\"><span class='glyphicon glyphicon-minus'></button></div>"
+            if ($(".child").is(":last")) {
+                $('.child:last').after(child);
+            }else{
+                $("#children-form").prepend(child);
+            }
+        });
+    };
+
 </script>
 
-<script type="application/javascript">
-    var c = 0;
-    function addChild() {
-        c++;
-        getCount();
-        var s = document.getElementById('child').innerHTML;
-        s = s.replace(/[\r\n]/g, '');
-        var regexp = /(.*)(<span id=.*><\/span>)(<br>)(.*)/gi;
-        s1 = s.replace(regexp, '$2');
-        s2 = s1.replace(/\[\d\]/gi, '['+ c +']');
-        s2 = s2.replace(/(removeCh\()(\d+\))/gi, '$1' + c + ')');
-        s = s.replace(regexp, '$1$2' + s2 + '$3$4');
-        document.getElementById('child').innerHTML = s;
-    }
-    function removeCh(q) {
-        if (c==0) {
-            return false;
-        }else{
-            c--;
-            getCount();
-        }
-        s = document.getElementById('child').innerHTML;
-        s = s.replace(/[\r\n]/g, '');
-        re = new RegExp('<span id="?child\\['+q+'.*?<\\/span>', 'gi');
-        s = s.replace(re, '');
-        document.getElementById('child').innerHTML = s;
-    }
-    function getCount() {
-        document.getElementById('child-count').value = '' + (c + 1);
-    }
-
-    </script>
-
-    </body>
+</body>
 </html>
